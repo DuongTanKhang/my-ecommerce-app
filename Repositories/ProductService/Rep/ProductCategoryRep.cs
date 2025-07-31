@@ -31,6 +31,11 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             }
 
         }
+        /// <summary>
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
 
         public async Task<IEnumerable<TblCategory>> GetProductsByCategorySync(int categoryId)
         {

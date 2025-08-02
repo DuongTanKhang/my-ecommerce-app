@@ -93,6 +93,131 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductDescriptionController",
+    "Method": "GetDescription",
+    "RelativePath": "api/ProductDescription/{descriptionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "descriptionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ECommerceBackend.Models.ProductService.TblProductDescription",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductDescriptionController",
+    "Method": "UpdateDescription",
+    "RelativePath": "api/ProductDescription/{descriptionId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "description",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.UpdateProductDescriptionDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "descriptionId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductDescriptionController",
+    "Method": "DeleteDescription",
+    "RelativePath": "api/ProductDescription/{descriptionId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "descriptionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductDescriptionController",
+    "Method": "GetDescriptionByProduct",
+    "RelativePath": "api/ProductDescription/by-product/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ECommerceBackend.Models.ProductService.TblProductDescription, ECommerceBackend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductDescriptionController",
+    "Method": "AddDescription",
+    "RelativePath": "api/ProductDescription/by-product/{productId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.UpdateProductDescriptionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ECommerceBackend.Models.ProductService.TblProductDescription",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductsController",
     "Method": "GetProducts",
     "RelativePath": "api/Products",

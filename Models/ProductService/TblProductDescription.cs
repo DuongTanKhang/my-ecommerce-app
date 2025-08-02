@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceBackend.Models.ProductService;
 
 public partial class TblProductDescription
 {
+    [Key]
+    public int Id { get; set; }
+
     public int ProductId { get; set; }
 
     public string? Description { get; set; }
 
-    public virtual TblCategory Product { get; set; } = null!;
+    public virtual TblProduct Product { get; set; } = null!;
 }

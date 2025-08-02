@@ -11,5 +11,5 @@ public partial class TblProductCategory
 
     public virtual TblCategory Category { get; set; } = null!;
 
-    public virtual TblCategory Product { get; set; } = null!;
+    public virtual TblProduct Product { get; set; } = null!;
 }

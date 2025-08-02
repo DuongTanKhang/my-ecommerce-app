@@ -168,3 +168,4 @@ C:\Users\USER\Source\Repos\ECommerceBackend\ECommerceBackend\bin\Debug\net9.0\Sw
 C:\Users\USER\Source\Repos\ECommerceBackend\ECommerceBackend\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\USER\Source\Repos\ECommerceBackend\ECommerceBackend\bin\Debug\net9.0\AutoMapper.dll
 C:\Users\USER\Source\Repos\ECommerceBackend\ECommerceBackend\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\USER\Source\Repos\ECommerceBackend\ECommerceBackend\obj\Debug\net9.0\ECommerceBackend.sourcelink.json

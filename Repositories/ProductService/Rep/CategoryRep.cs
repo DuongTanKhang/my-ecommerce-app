@@ -35,11 +35,14 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
 
         }
 
-        public Task<IEnumerable<TblCategory>> GetAllAsync()
+        public Task<IEnumerable<TblCategory?>> GetAllAsync()
         {
             try
             {
-                return _repository.GetAll();
+                var categories = _repository.GetAll();
+                if (categories == null)
+                    throw new KeyNotFoundException("Category not found");
+                return categories;
             }
             catch (Exception ex)
             {
@@ -48,7 +51,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
 
         }
 
-        public Task<TblCategory> GetByIdAsync(int id)
+        public Task<TblCategory?> GetByIdAsync(int id)
         {
             try
             {

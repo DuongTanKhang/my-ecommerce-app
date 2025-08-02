@@ -40,10 +40,6 @@ public partial class ECommerceMicroserviceContext : DbContext
 
     public virtual DbSet<TblVariantAttribute> TblVariantAttributes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=e_commerce_microservice;Trusted_Connection=True;TrustServerCertificate=True;");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblCart>(entity =>
@@ -139,20 +135,21 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.Category).WithMany()
                 .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_product_categories_tbl_categories");
 
             entity.HasOne(d => d.Product).WithMany()
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_product_categories_tbl_products");
         });
 
         modelBuilder.Entity<TblProductDescription>(entity =>
         {
             entity
-                .HasNoKey()
-                .ToTable("tbl_product_description");
+                .ToTable("tbl_product_description")
+                .HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("_id");
 
             entity.Property(e => e.Description)
                 .HasDefaultValue("")

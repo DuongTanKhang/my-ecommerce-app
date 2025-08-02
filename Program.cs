@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<AuditInterceptor>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 // Đăng ký DbContext
 builder.Services.AddDbContext<ECommerceMicroserviceContext>((serviceProvider, options) =>
 {
@@ -25,6 +26,7 @@ builder.Services.AddDbContext<ECommerceMicroserviceContext>((serviceProvider, op
 
 
 // Đăng ký Repository
+builder.Services.AddScoped<IProductDescriptionRep, ProductDescriptionRep>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProductsRep, ProductsRep>();
 builder.Services.AddScoped<ICategoryRep, CategoryRep>();

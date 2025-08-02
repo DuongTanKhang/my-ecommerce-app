@@ -10,9 +10,10 @@ namespace ECommerceBackend.Helper
     {
         public MappingProfile()
         {
-            CreateMap<UpdateCategoryDto, TblCategory>().ReverseMap();
-            CreateMap<UpdateProductDto, TblProduct>().ReverseMap();
-            CreateMap<UpdateProductDescriptionDto, TblProductDescription>().ReverseMap();
+            CreateMap<CategoryDto, TblCategory>().ReverseMap();
+            CreateMap<ProductDto, TblProduct>().ReverseMap();
+            CreateMap<ProductDescriptionDto, TblProductDescription>().ReverseMap();
+            CreateMap<ProductCategoryDto,TblProductCategory>().ReverseMap();
         }
 
     }

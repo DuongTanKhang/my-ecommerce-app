@@ -12,19 +12,28 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
     {
         private readonly ECommerceMicroserviceContext _context;
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<TblProduct> _repository;
+        private readonly IGenericRepository<TblProduct> _genericRepository;
         public ProductsRep(IMapper mapper, IGenericRepository<TblProduct> genericRepository, ECommerceMicroserviceContext context)
         {
             _mapper = mapper;
-            _repository = genericRepository;
+            _genericRepository = genericRepository;
             _context = context;
         }
-        public Task<TblProduct> AddAsync(TblProduct product)
+        public async Task<TblProduct> AddAsync(ProductDto newProduct)
         {
 
             try
             {
-                return _repository.Add(product);
+                var product = new TblProduct
+                {
+                    Name = newProduct.Name,
+                    Sku = newProduct.Sku,
+                    Price = newProduct.Price,
+                    StockQuanity = newProduct.StockQuanity,
+                    Active = newProduct.Active,
+                };
+                await _genericRepository.Add(product);
+                return product;
             }
             catch (Exception ex)
             {
@@ -35,7 +44,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                return _repository.GetAll();
+                return _genericRepository.GetAll();
             }
             catch (Exception ex)
             {
@@ -47,7 +56,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                return _repository.GetById(id);
+                return _genericRepository.GetById(id);
 
             }
             catch (Exception ex)
@@ -56,11 +65,11 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             }
         }
 
-        public async Task<bool> UpdateAsync(int id, UpdateProductDto productDto)
+        public async Task<bool> UpdateAsync(int id, ProductDto productDto)
         {
             try
             {
-                var existingProduct = _repository.GetById(id);
+                var existingProduct = _genericRepository.GetById(id);
 
                 if (existingProduct == null)
                 {

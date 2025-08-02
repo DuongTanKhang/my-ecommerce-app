@@ -44,11 +44,11 @@ namespace ECommerceBackend.Controllers.ProductService
         }
 
         [HttpPost("by-product/{productId}")]
-        public async Task<ActionResult<TblProductDescription>> AddDescription(int productId, [FromBody] UpdateProductDescriptionDto dto)
+        public async Task<ActionResult<TblProductDescription>> AddDescription(int productId, [FromBody]ProductDescriptionDto newDescription)
         {
             try
             {
-                var add = await _rep.AddSync(productId, dto);
+                var add = await _rep.AddSync(productId, newDescription);
                 return CreatedAtAction(nameof(GetDescription), new { descriptionId = add.Id }, add);
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace ECommerceBackend.Controllers.ProductService
         }
 
         [HttpPut("{descriptionId}")]
-        public async Task<IActionResult> UpdateDescription(int productId, [FromBody] UpdateProductDescriptionDto description)
+        public async Task<IActionResult> UpdateDescription(int productId, [FromBody] ProductDescriptionDto description)
         {
             try
             {

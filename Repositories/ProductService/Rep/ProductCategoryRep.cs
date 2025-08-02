@@ -1,5 +1,7 @@
-﻿using ECommerceBackend.Models;
+﻿using AutoMapper;
+using ECommerceBackend.Models;
 using ECommerceBackend.Models.ProductService;
+using ECommerceBackend.Models.ProductService.DTOs;
 using ECommerceBackend.Repositories.ProductService.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,22 +10,26 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
     public class ProductCategoryRep : IProductCategoryRep
     {
         private readonly ECommerceMicroserviceContext _context;
-        public ProductCategoryRep(ECommerceMicroserviceContext context)
+        private readonly IMapper _mapper;
+        private readonly IGenericRepository<TblProductCategory> _genericRepository;
+        public ProductCategoryRep(ECommerceMicroserviceContext context, IMapper mapper, IGenericRepository<TblProductCategory> genericRepository)
         {
             _context = context;
+            _mapper = mapper;
+            _genericRepository = genericRepository;
         }
 
-        public async Task<bool> Addsync(int productId, int categoryId)
+        public async Task<TblProductCategory> AddAsync(ProductCategoryDto newProductCategory)
         {
             try
             {
-                var productCategory = new TblProductCategory
+                var add = new TblProductCategory
                 {
-                    ProductId = productId,
-                    CategoryId = categoryId
+                    ProductId = newProductCategory.ProductId,
+                    CategoryId = newProductCategory.CategoryId
                 };
-                _context.TblProductCategories.Add(productCategory);
-                return await _context.SaveChangesAsync() > 0;
+                await _genericRepository.Add(add);
+                return add;
             }
             catch (Exception ex)
             {
@@ -31,17 +37,29 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             }
 
         }
-        /// <summary>
-        /// </summary>
-        /// <param name="categoryId"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
 
-        public async Task<IEnumerable<TblCategory>> GetProductsByCategorySync(int categoryId)
+        public async Task<TblProductCategory> GetByIdAsync(int id)
         {
             try
             {
-                var products =await  _context.TblProductCategories
+                var entity = await _genericRepository.GetById(id);
+                if (entity == null)
+                {
+                    throw new Exception($"Don't exist entity with id:{id}");
+                }
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching entity with id:{id},{ex.Message}");
+            }
+        }
+
+        public async Task<IEnumerable<TblProduct>> GetProductsByCategoryAsync(int categoryId)
+        {
+            try
+            {
+                var products = await _context.TblProductCategories
                     .Where(pc => pc.CategoryId == categoryId)
                     .Include(pc => pc.Product) // navigation property từ TblProductCategory → TblProduct
                     .Select(pc => pc.Product)
@@ -55,24 +73,35 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             }
         }
 
-        public async Task<bool> Removesync(int productId, int categoryId)
+        public async Task<bool> RemoveAsync(int id)
         {
 
             try
             {
-                var productCategory = await _context.TblProductCategories.FirstOrDefaultAsync(pc => pc.ProductId == productId && pc.CategoryId == categoryId);
-                if (productCategory == null)
-                {
-                    throw new Exception($"Error remove {productCategory}");
-                }
-                _context.TblProductCategories.Remove(productCategory);
-                return await _context.SaveChangesAsync() > 0;
+                return await _genericRepository.Delete(id);
 
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error remove,{ex.Message}");
 
+            }
+        }
+        public async Task<bool> UpdateAsync(int id, ProductCategoryDto dto)
+        {
+            try
+            {
+                var exsiting = await _genericRepository.GetById(id);
+                if (exsiting == null)
+                {
+                    throw new Exception($"Entity with id:{id} don't exsit");
+                }
+                _mapper.Map(dto, exsiting);
+                return await _context.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed updating with id:{id},{ex.Message}");
             }
         }
     }

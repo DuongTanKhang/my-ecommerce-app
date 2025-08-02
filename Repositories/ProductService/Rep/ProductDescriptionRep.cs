@@ -21,28 +21,32 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             _mapper = mapper;
             _productRepository = productRepository;
         }
-        public async Task<TblProductDescription> AddSync(int productId, UpdateProductDescriptionDto dto)
+        public async Task<TblProductDescription> AddSync(int productId, ProductDescriptionDto newDescription)
         {
             try
             {
                 var exsitingProduct = await _productRepository.GetById(productId);
                 if (exsitingProduct == null)
                 {
-                    throw new Exception($"product with {productId} don't exist");
+                    throw new Exception($"product with {productId} does not exist");
                 }
-                var newDescription = new TblProductDescription
-                {
 
+                var description = new TblProductDescription
+                {
                     ProductId = productId,
-                    Description = dto.Description
+                    Description = newDescription.Description
                 };
-                _context.TblProductDescriptions.Add(newDescription);
+
+                _context.TblProductDescriptions.Add(description);
                 await _context.SaveChangesAsync();
-                return newDescription;
+
+                return description;
+
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error adding description: {ex.Message}");
+
             }
         }
 
@@ -75,7 +79,8 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                     throw new Exception($"Description with id:{descriptionId} don't exsit");
                 }
                 return description;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -88,7 +93,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                 var descriptions = await _context.TblProductDescriptions
                                             .Where(x => x.ProductId == productId)
                                             .ToListAsync();
-                    
+
                 if (!descriptions.Any())
                 {
                     throw new Exception($"Product with id:{productId} doesn't have any descriptions or doesn't exist.");
@@ -102,7 +107,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             }
         }
 
-        public async Task<bool> UpdateSync(int descriptionId, UpdateProductDescriptionDto newDescriptionDto)
+        public async Task<bool> UpdateSync(int descriptionId, ProductDescriptionDto newDescriptionDto)
         {
             try
             {

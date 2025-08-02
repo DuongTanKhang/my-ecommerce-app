@@ -1,6 +1,6 @@
 ﻿namespace ECommerceBackend.Models.ProductService.DTOs
 {
-    public class UpdateProductDescriptionDto
+    public class ProductDescriptionDto
     {
         public string? Description { get; set; }
     }

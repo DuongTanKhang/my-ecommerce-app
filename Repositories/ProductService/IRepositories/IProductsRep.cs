@@ -7,7 +7,7 @@ namespace ECommerceBackend.Repositories.ProductService.IRepositories
     {
         Task<IEnumerable<TblProduct>> GetAllAsync();
         Task<TblProduct?> GetByIdAsync(int id);
-        Task<TblProduct> AddAsync(TblProduct product);
-        Task<bool> UpdateAsync(int id, UpdateProductDto product);
+        Task<TblProduct> AddAsync(ProductDto product);
+        Task<bool> UpdateAsync(int id, ProductDto product);
     }
 }

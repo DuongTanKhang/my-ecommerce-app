@@ -29,7 +29,7 @@
     "Parameters": [
       {
         "Name": "category",
-        "Type": "ECommerceBackend.Models.ProductService.TblCategory",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.CategoryDto",
         "IsRequired": true
       }
     ],
@@ -86,11 +86,105 @@
       },
       {
         "Name": "category",
-        "Type": "ECommerceBackend.Models.ProductService.DTOs.UpdateCategoryDto",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.CategoryDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.CategoryController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/Category/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductCategoryController",
+    "Method": "AddNewRelationship",
+    "RelativePath": "api/ProductCategory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tblProductCategory",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductCategoryDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ECommerceBackend.Models.ProductService.TblProductCategory",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductCategoryController",
+    "Method": "GetById",
+    "RelativePath": "api/ProductCategory/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ECommerceBackend.Models.ProductService.TblProductCategory",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductCategoryController",
+    "Method": "GetByCategory",
+    "RelativePath": "api/ProductCategory/by-category/{categoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ECommerceBackend.Models.ProductService.TblProduct, ECommerceBackend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductDescriptionController",
@@ -133,7 +227,7 @@
       },
       {
         "Name": "description",
-        "Type": "ECommerceBackend.Models.ProductService.DTOs.UpdateProductDescriptionDto",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductDescriptionDto",
         "IsRequired": true
       },
       {
@@ -200,8 +294,8 @@
         "IsRequired": true
       },
       {
-        "Name": "dto",
-        "Type": "ECommerceBackend.Models.ProductService.DTOs.UpdateProductDescriptionDto",
+        "Name": "newDescription",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductDescriptionDto",
         "IsRequired": true
       }
     ],
@@ -247,7 +341,7 @@
     "Parameters": [
       {
         "Name": "product",
-        "Type": "ECommerceBackend.Models.ProductService.TblProduct",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductDto",
         "IsRequired": true
       }
     ],
@@ -304,7 +398,7 @@
       },
       {
         "Name": "product",
-        "Type": "ECommerceBackend.Models.ProductService.DTOs.UpdateProductDto",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductDto",
         "IsRequired": true
       }
     ],

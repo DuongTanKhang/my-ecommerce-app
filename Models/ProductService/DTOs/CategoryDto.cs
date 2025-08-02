@@ -1,6 +1,6 @@
 ﻿namespace ECommerceBackend.Models.ProductService.DTOs
 {
-    public class UpdateCategoryDto
+    public class CategoryDto
     {
         public string Name { get; set; } = null!;
         public string? Slug { get; set; }

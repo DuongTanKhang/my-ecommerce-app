@@ -127,9 +127,9 @@ public partial class ECommerceMicroserviceContext : DbContext
         modelBuilder.Entity<TblProductCategory>(entity =>
         {
             entity
-                .HasNoKey()
-                .ToTable("tbl_product_categories");
-
+                .ToTable("tbl_product_categories")
+                .HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("_id");
             entity.Property(e => e.CategoryId).HasColumnName("_category_id");
             entity.Property(e => e.ProductId).HasColumnName("_product_id");
 

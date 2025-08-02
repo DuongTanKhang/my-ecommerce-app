@@ -6,8 +6,13 @@ namespace ECommerceBackend.Repositories.ProductService.IRepositories
     public interface ICategoryRep
     {
         Task<IEnumerable<TblCategory?>> GetAllAsync();
+
         Task<TblCategory?> GetByIdAsync(int id);
-        Task <TblCategory> AddAsync(TblCategory category);
-        Task<bool> UpdateAsync(int id, UpdateCategoryDto categoryDto);
+
+        Task <TblCategory> AddAsync(CategoryDto category);
+
+        Task<bool> UpdateAsync(int id, CategoryDto categoryDto);
+
+        Task<bool> DeleteAsync(int id);
     }
 }

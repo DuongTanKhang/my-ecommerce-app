@@ -45,7 +45,7 @@ namespace ECommerceBackend.Controllers.ProductService
         }
 
         [HttpPost]
-        public async Task<ActionResult<TblProduct>> CreateProduct(TblProduct product)
+        public async Task<ActionResult<TblProduct>> CreateProduct([FromBody]ProductDto product)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace ECommerceBackend.Controllers.ProductService
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody]UpdateProductDto product)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody]ProductDto product)
         {
             try
             {

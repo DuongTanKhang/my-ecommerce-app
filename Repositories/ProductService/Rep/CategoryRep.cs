@@ -12,21 +12,30 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
     {
         private readonly ECommerceMicroserviceContext _context;
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<TblCategory> _repository;
+        private readonly IGenericRepository<TblCategory> _genericRepository;
 
         public CategoryRep(ECommerceMicroserviceContext context, IMapper mapper, IGenericRepository<TblCategory> genericRepository)
         {
             _context = context;
             _mapper = mapper;
-            _repository = genericRepository;
+            _genericRepository = genericRepository;
         }
 
-        public Task<TblCategory> AddAsync(TblCategory category)
+        public async Task<TblCategory> AddAsync(CategoryDto newCategory)
         {
             try
             {
-                return _repository.Add(category);
-
+                var category = new TblCategory
+                {
+                    Name = newCategory.Name,
+                    Slug = newCategory.Slug,
+                    ParentId = newCategory.ParentId,
+                    ImageUrl = newCategory.ImageUrl,
+                    Description = newCategory.Description,
+                    Active = newCategory.Active,
+                };
+                await _genericRepository.Add(category);
+                return category;
             }
             catch (Exception ex)
             {
@@ -39,7 +48,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var categories = _repository.GetAll();
+                var categories = _genericRepository.GetAll();
                 if (categories == null)
                     throw new KeyNotFoundException("Category not found");
                 return categories;
@@ -55,7 +64,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                return _repository.GetById(id);
+                return _genericRepository.GetById(id);
             }
             catch (Exception ex)
             {
@@ -64,7 +73,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             }
         }
 
-        public async Task<bool> UpdateAsync(int id, UpdateCategoryDto categoryDto)
+        public async Task<bool> UpdateAsync(int id, CategoryDto categoryDto)
         {
             try
             {
@@ -81,6 +90,20 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
             {
                 throw new Exception($"Error updating catgegory with id:{id},{ex.Message}");
             }
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            try
+            {
+                return await _genericRepository.Delete(id);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting category with id:{id},{ex.Message}");
+            }
+
         }
 
     }

@@ -46,12 +46,12 @@ namespace ECommerceBackend.Controllers.ProductService
         }
 
         [HttpPost]
-        public async Task<ActionResult<TblCategory>> CreateCategory(TblCategory category)
+        public async Task<ActionResult<TblCategory>> CreateCategory(CategoryDto category)
         {
             try
             {
                 var created = await _rep.AddAsync(category);
-                return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
+                return CreatedAtAction(nameof(GetCategory), new { id = created.Id }, category);
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace ECommerceBackend.Controllers.ProductService
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory(int id, UpdateCategoryDto category)
+        public async Task<IActionResult> UpdateCategory(int id, CategoryDto category)
         {
             try
             {
@@ -73,5 +73,17 @@ namespace ECommerceBackend.Controllers.ProductService
             }
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult>DeleteCategory(int id)
+        {
+            try
+            {
+                await _rep.DeleteAsync(id);
+                return NoContent();
+            }catch(Exception ex)
+            {
+                return StatusCode(500, $"Error server:{ex.Message}");
+            }
+        }
     }
 }

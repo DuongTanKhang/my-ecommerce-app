@@ -312,6 +312,126 @@
     ]
   },
   {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductImageController",
+    "Method": "UpdateImage",
+    "RelativePath": "api/ProductImage/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newImage",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductImageDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductImageController",
+    "Method": "DeleteImage",
+    "RelativePath": "api/ProductImage/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductImageController",
+    "Method": "GetImage",
+    "RelativePath": "api/ProductImage/{imageId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "imageId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ECommerceBackend.Models.ProductService.TblProductImage",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductImageController",
+    "Method": "AddImage",
+    "RelativePath": "api/ProductImage/{productId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newImage",
+        "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductImageDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ECommerceBackend.Models.ProductService.TblProductImage",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductImageController",
+    "Method": "GetImagesByProduct",
+    "RelativePath": "api/ProductImage/by-product/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ECommerceBackend.Models.ProductService.TblProductImage, ECommerceBackend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ECommerceBackend.Controllers.ProductService.ProductsController",
     "Method": "GetProducts",
     "RelativePath": "api/Products",
@@ -400,6 +520,63 @@
         "Name": "product",
         "Type": "ECommerceBackend.Models.ProductService.DTOs.ProductDto",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.StockLogController",
+    "Method": "GetAllLogs",
+    "RelativePath": "api/StockLog/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.StockLogController",
+    "Method": "GetLogsByProduct",
+    "RelativePath": "api/StockLog/by-product/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceBackend.Controllers.ProductService.StockLogController",
+    "Method": "LogStockChange",
+    "RelativePath": "api/StockLog/log",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "changeAmount",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "reference",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

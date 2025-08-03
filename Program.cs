@@ -4,6 +4,7 @@ using ECommerceBackend.Models;
 using ECommerceBackend.Repositories;
 using ECommerceBackend.Repositories.ProductService.IRepositories;
 using ECommerceBackend.Repositories.ProductService.Rep;
+using ECommerceBackend.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -26,6 +27,9 @@ builder.Services.AddDbContext<ECommerceMicroserviceContext>((serviceProvider, op
 
 
 // Đăng ký Repository();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IStockLogRepository, StockLogRepository>();
+builder.Services.AddScoped<IStockLogServiceRep , StockLogServiceRep>();
 builder.Services.AddScoped<IProductImageRep, ProductImageRep>();
 builder.Services.AddScoped<IProductCategoryRep, ProductCategoryRep>();
 builder.Services.AddScoped<IProductDescriptionRep, ProductDescriptionRep>();

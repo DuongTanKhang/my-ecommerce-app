@@ -7,19 +7,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceBackend.Repositories.ProductService.Rep
 {
-    public class ProductImageRep : IProductImageRep
+    public class ProductImageRep : GenericRepository<TblProductImage>, IProductImageRep
     {
         private readonly ECommerceMicroserviceContext _context;
-        private readonly IGenericRepository<TblProductImage> _genericRepository;
         private readonly IGenericRepository<TblProduct> _productGenericReposity;
         private readonly IMapper _mapper;
 
-        public ProductImageRep(IGenericRepository<TblProductImage> genericRepository, IMapper mapper, IGenericRepository<TblProduct> productGenericReposity, ECommerceMicroserviceContext context)
+        public ProductImageRep(IMapper mapper, IGenericRepository<TblProduct> productGenericReposity, ECommerceMicroserviceContext context) :base(context)
         {
-            _genericRepository = genericRepository;
+            _context = context;
             _mapper = mapper;
             _productGenericReposity = productGenericReposity;
-            _context = context;
         }
         public async Task<TblProductImage> AddAsync(int productId, ProductImageDto productImageDto)
         {
@@ -33,14 +31,14 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                 ProductId = productId,
                 ImageUrl = productImageDto.ImageUrl,
             };
-            return await _genericRepository.Add(imageProduct);
+            return await Add(imageProduct);
         }
 
         public async Task<bool> DeleteAsync(int imageId)
         {
             try
             {
-                return await _genericRepository.Delete(imageId);
+                return await Delete(imageId);
             }
             catch (Exception ex)
             {
@@ -52,7 +50,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                return await _genericRepository.GetById(imageId);
+                return await GetById(imageId);
             }
             catch (Exception ex)
             {
@@ -76,7 +74,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var entity = _genericRepository.GetById(id);
+                var entity = GetById(id);
                 if (entity == null)
                 {
                     throw new Exception($"Entity with id:{id} doesn't exsit");

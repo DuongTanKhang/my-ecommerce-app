@@ -3,7 +3,7 @@ using ECommerceBackend.Models.ProductService.DTOs;
 
 namespace ECommerceBackend.Repositories.ProductService.IRepositories
 {
-    public interface IProductImageRep
+    public interface IProductImageRep : IGenericRepository<TblProductImage>
     {
         Task<IEnumerable<TblProductImage?>> GetByProductIdAsync(int productId);
 

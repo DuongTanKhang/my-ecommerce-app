@@ -3,7 +3,7 @@ using ECommerceBackend.Models.ProductService.DTOs;
 
 namespace ECommerceBackend.Repositories.ProductService.IRepositories
 {
-    public interface IProductCategoryRep
+    public interface IProductCategoryRep : IGenericRepository<TblProductCategory>
     {
         Task <TblProductCategory> AddAsync(ProductCategoryDto newProductCategory);
         Task<bool> RemoveAsync(int id);

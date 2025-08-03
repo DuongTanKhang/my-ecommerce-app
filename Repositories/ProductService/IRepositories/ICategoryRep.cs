@@ -3,7 +3,7 @@ using ECommerceBackend.Models.ProductService.DTOs;
 
 namespace ECommerceBackend.Repositories.ProductService.IRepositories
 {
-    public interface ICategoryRep
+    public interface ICategoryRep : IGenericRepository<TblCategory>
     {
         Task<IEnumerable<TblCategory?>> GetAllAsync();
 

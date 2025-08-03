@@ -8,15 +8,13 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace ECommerceBackend.Repositories.ProductService.Rep
 {
-    public class ProductsRep : IProductsRep
+    public class ProductsRep : GenericRepository<TblProduct>, IProductsRep
     {
         private readonly ECommerceMicroserviceContext _context;
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<TblProduct> _genericRepository;
-        public ProductsRep(IMapper mapper, IGenericRepository<TblProduct> genericRepository, ECommerceMicroserviceContext context)
+        public ProductsRep(ECommerceMicroserviceContext context, IMapper mapper) :base(context)
         {
             _mapper = mapper;
-            _genericRepository = genericRepository;
             _context = context;
         }
         public async Task<TblProduct> AddAsync(ProductDto newProduct)
@@ -32,7 +30,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                     StockQuanity = newProduct.StockQuanity,
                     Active = newProduct.Active,
                 };
-                await _genericRepository.Add(product);
+                await Add(product);
                 return product;
             }
             catch (Exception ex)
@@ -40,11 +38,11 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                 throw new Exception($"Error adding new product,{ex.Message}");
             }
         }
-        public Task<IEnumerable<TblProduct>> GetAllAsync()
+        public Task<IEnumerable<TblProduct?>> GetAllAsync()
         {
             try
             {
-                return _genericRepository.GetAll();
+                return GetAll();
             }
             catch (Exception ex)
             {
@@ -56,7 +54,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                return _genericRepository.GetById(id);
+                return GetById(id);
 
             }
             catch (Exception ex)
@@ -69,7 +67,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var existingProduct = _genericRepository.GetById(id);
+                var existingProduct = GetById(id);
 
                 if (existingProduct == null)
                 {

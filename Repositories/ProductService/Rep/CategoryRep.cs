@@ -8,17 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceBackend.Repositories.ProductService.Rep
 {
-    public class CategoryRep : ICategoryRep
+    public class CategoryRep : GenericRepository<TblCategory>, ICategoryRep
     {
         private readonly ECommerceMicroserviceContext _context;
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<TblCategory> _genericRepository;
 
-        public CategoryRep(ECommerceMicroserviceContext context, IMapper mapper, IGenericRepository<TblCategory> genericRepository)
+        public CategoryRep(ECommerceMicroserviceContext context, IMapper mapper) : base(context)
         {
             _context = context;
             _mapper = mapper;
-            _genericRepository = genericRepository;
         }
 
         public async Task<TblCategory> AddAsync(CategoryDto newCategory)
@@ -28,13 +26,13 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                 var category = new TblCategory
                 {
                     Name = newCategory.Name,
-                    Slug = newCategory.Slug,
+                    Slug = SlugHelper.GenerateSlug(newCategory.Name),
                     ParentId = newCategory.ParentId,
                     ImageUrl = newCategory.ImageUrl,
                     Description = newCategory.Description,
                     Active = newCategory.Active,
                 };
-                await _genericRepository.Add(category);
+                await Add(category);
                 return category;
             }
             catch (Exception ex)
@@ -48,7 +46,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var categories = _genericRepository.GetAll();
+                var categories = GetAll();
                 if (categories == null)
                     throw new KeyNotFoundException("Category not found");
                 return categories;
@@ -64,7 +62,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                return _genericRepository.GetById(id);
+                return GetById(id);
             }
             catch (Exception ex)
             {
@@ -77,7 +75,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var exsitingCategory = await _context.TblCategories.FindAsync(id);
+                var exsitingCategory = await GetById(id);
                 if (exsitingCategory == null)
                 {
                     throw new Exception($"Category with id:{id} don't exsit");
@@ -96,7 +94,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                return await _genericRepository.Delete(id);
+                return await Delete(id);
 
             }
             catch (Exception ex)

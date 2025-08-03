@@ -20,5 +20,6 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                 .OrderByDescending(log => log.CreatedDate)
                 .ToListAsync();
         }
+
     }
 }

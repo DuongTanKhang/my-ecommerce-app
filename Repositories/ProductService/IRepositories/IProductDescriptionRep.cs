@@ -3,7 +3,7 @@ using ECommerceBackend.Models.ProductService.DTOs;
 
 namespace ECommerceBackend.Repositories.ProductService.IRepositories
 {
-    public interface IProductDescriptionRep
+    public interface IProductDescriptionRep : IGenericRepository<TblProductDescription>
     {
         Task <TblProductDescription> AddSync(int productId, ProductDescriptionDto newDescription);
         Task<TblProductDescription?> GetByIdAsync(int descriptionId);

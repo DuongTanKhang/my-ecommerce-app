@@ -3,9 +3,9 @@ using ECommerceBackend.Models.ProductService.DTOs;
 
 namespace ECommerceBackend.Repositories.ProductService.IRepositories
 {
-    public interface IProductsRep
+    public interface IProductsRep : IGenericRepository<TblProduct>
     {
-        Task<IEnumerable<TblProduct>> GetAllAsync();
+        Task<IEnumerable<TblProduct?>> GetAllAsync();
         Task<TblProduct?> GetByIdAsync(int id);
         Task<TblProduct> AddAsync(ProductDto product);
         Task<bool> UpdateAsync(int id, ProductDto product);

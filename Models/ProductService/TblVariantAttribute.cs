@@ -1,8 +1,7 @@
-﻿using ECommerceBackend.Models.ProductService;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace ECommerceBackend.Models;
+namespace ECommerceBackend.Models.ProductService;
 
 public partial class TblVariantAttribute
 {

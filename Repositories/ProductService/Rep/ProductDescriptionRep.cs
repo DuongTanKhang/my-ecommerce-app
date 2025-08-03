@@ -7,17 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceBackend.Repositories.ProductService.Rep
 {
-    public class ProductDescriptionRep : IProductDescriptionRep
+    public class ProductDescriptionRep : GenericRepository<TblProductDescription>, IProductDescriptionRep
     {
         private readonly ECommerceMicroserviceContext _context;
-        private readonly IGenericRepository<TblProductDescription> _genericRepository;
         private readonly IGenericRepository<TblProduct> _productRepository;
         private readonly IMapper _mapper;
 
-        public ProductDescriptionRep(ECommerceMicroserviceContext context, IGenericRepository<TblProductDescription> genericRepository, IGenericRepository<TblProduct> productRepository, IMapper mapper)
+        public ProductDescriptionRep(ECommerceMicroserviceContext context, IGenericRepository<TblProduct> productRepository, IMapper mapper) : base(context)
         {
             _context = context;
-            _genericRepository = genericRepository;
             _mapper = mapper;
             _productRepository = productRepository;
         }
@@ -37,7 +35,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                     Description = newDescription.Description
                 };
 
-                 return await _genericRepository.Add(description);
+                 return await Add(description);
             }
             catch (Exception ex)
             {
@@ -50,7 +48,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var description = await _genericRepository.GetById(descriptionId);
+                var description = await GetById(descriptionId);
                 if (description == null)
                 {
                     throw new Exception("Error");
@@ -69,7 +67,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var description = await _genericRepository.GetById(descriptionId);
+                var description = await GetById(descriptionId);
                 if (description == null)
                 {
                     throw new Exception($"Description with id:{descriptionId} don't exsit");
@@ -107,7 +105,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var exsiting = await _genericRepository.GetById(descriptionId);
+                var exsiting = await GetById(descriptionId);
                 if (exsiting == null)
                 {
                     throw new Exception("dont exits");

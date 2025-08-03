@@ -69,28 +69,36 @@ public partial class ECommerceMicroserviceContext : DbContext
 
         modelBuilder.Entity<TblCategory>(entity =>
         {
-            entity.ToTable("tbl_categories");
+            entity.ToTable("tbl_categories")
+                  .HasKey(e=>e.Id);
 
             entity.Property(e => e.Id).HasColumnName("_id");
+
             entity.Property(e => e.Active)
                 .HasDefaultValue(1)
                 .HasColumnName("_active");
+
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("datetime")
                 .HasColumnName("_created_date");
+
             entity.Property(e => e.Description)
                 .HasDefaultValue("")
                 .HasColumnName("_description");
+
             entity.Property(e => e.ImageUrl)
                 .HasMaxLength(500)
                 .HasDefaultValue("")
                 .HasColumnName("_image_url");
+
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("_name");
+
             entity.Property(e => e.ParentId)
                 .HasDefaultValue(1)
                 .HasColumnName("_parent_id");
+
             entity.Property(e => e.Slug)
                 .HasMaxLength(255)
                 .HasDefaultValue("")

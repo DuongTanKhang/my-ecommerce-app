@@ -7,16 +7,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceBackend.Repositories.ProductService.Rep
 {
-    public class ProductCategoryRep : IProductCategoryRep
+    public class ProductCategoryRep : GenericRepository<TblProductCategory>, IProductCategoryRep
     {
         private readonly ECommerceMicroserviceContext _context;
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<TblProductCategory> _genericRepository;
-        public ProductCategoryRep(ECommerceMicroserviceContext context, IMapper mapper, IGenericRepository<TblProductCategory> genericRepository)
+
+        public ProductCategoryRep(ECommerceMicroserviceContext context, IMapper mapper) : base(context)
         {
             _context = context;
             _mapper = mapper;
-            _genericRepository = genericRepository;
+           
         }
 
         public async Task<TblProductCategory> AddAsync(ProductCategoryDto newProductCategory)
@@ -28,7 +28,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                     ProductId = newProductCategory.ProductId,
                     CategoryId = newProductCategory.CategoryId
                 };
-                await _genericRepository.Add(add);
+                await Add(add);
                 return add;
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var entity = await _genericRepository.GetById(id);
+                var entity = await GetById(id);
                 if (entity == null)
                 {
                     throw new Exception($"Don't exist entity with id:{id}");
@@ -78,7 +78,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
 
             try
             {
-                return await _genericRepository.Delete(id);
+                return await Delete(id);
 
             }
             catch (Exception ex)
@@ -91,7 +91,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
         {
             try
             {
-                var exsiting = await _genericRepository.GetById(id);
+                var exsiting = await GetById(id);
                 if (exsiting == null)
                 {
                     throw new Exception($"Entity with id:{id} don't exsit");

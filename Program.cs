@@ -25,7 +25,8 @@ builder.Services.AddDbContext<ECommerceMicroserviceContext>((serviceProvider, op
 });
 
 
-// Đăng ký Repository
+// Đăng ký Repository();
+builder.Services.AddScoped<IProductImageRep, ProductImageRep>();
 builder.Services.AddScoped<IProductCategoryRep, ProductCategoryRep>();
 builder.Services.AddScoped<IProductDescriptionRep, ProductDescriptionRep>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

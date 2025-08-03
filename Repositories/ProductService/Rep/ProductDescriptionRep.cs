@@ -37,11 +37,7 @@ namespace ECommerceBackend.Repositories.ProductService.Rep
                     Description = newDescription.Description
                 };
 
-                _context.TblProductDescriptions.Add(description);
-                await _context.SaveChangesAsync();
-
-                return description;
-
+                 return await _genericRepository.Add(description);
             }
             catch (Exception ex)
             {

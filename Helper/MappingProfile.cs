@@ -14,6 +14,7 @@ namespace ECommerceBackend.Helper
             CreateMap<ProductDto, TblProduct>().ReverseMap();
             CreateMap<ProductDescriptionDto, TblProductDescription>().ReverseMap();
             CreateMap<ProductCategoryDto,TblProductCategory>().ReverseMap();
+            CreateMap<ProductImageDto, TblProductImage>().ReverseMap();
         }
 
     }

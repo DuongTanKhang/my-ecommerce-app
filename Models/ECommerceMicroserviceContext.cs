@@ -58,12 +58,12 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.TblCarts)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_cart__tbl_products");
 
             entity.HasOne(d => d.User).WithMany(p => p.TblCarts)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_cart__tbl_users");
         });
 
@@ -158,7 +158,7 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany()
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_product_description__tbl_products");
         });
 
@@ -178,7 +178,7 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.TblProductImages)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_product_images__tbl_products");
         });
 
@@ -209,7 +209,7 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.TblProductVariants)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_product_variants__tbl_products");
         });
 
@@ -229,7 +229,7 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.TblStockLogs)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_stock_logs__tbl_products");
         });
 
@@ -272,7 +272,7 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.TblUserAdresses)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_user_adresses__tbl_users");
         });
 
@@ -298,7 +298,7 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.TblUserDetails)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_user_details__tbl_users");
         });
 
@@ -317,7 +317,7 @@ public partial class ECommerceMicroserviceContext : DbContext
 
             entity.HasOne(d => d.Variant).WithMany(p => p.TblVariantAttributes)
                 .HasForeignKey(d => d.VariantId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_tbl_variant_attributes__tbl_product_variants");
         });
 

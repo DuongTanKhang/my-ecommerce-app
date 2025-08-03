@@ -916,6 +916,204 @@
         }
       }
     },
+    "/api/ProductVariant/{id}": {
+      "get": {
+        "tags": [
+          "ProductVariant"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TblProductVariant"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TblProductVariant"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TblProductVariant"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProductVariant"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductVariantDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductVariantDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductVariantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductVariant"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ProductVariant": {
+      "post": {
+        "tags": [
+          "ProductVariant"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductVariantDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductVariantDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductVariantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TblProductVariant"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TblProductVariant"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TblProductVariant"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductVariant/by-product/{productId}": {
+      "get": {
+        "tags": [
+          "ProductVariant"
+        ],
+        "parameters": [
+          {
+            "name": "productID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TblProductVariant"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TblProductVariant"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TblProductVariant"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/StockLog/log": {
       "post": {
         "tags": [
@@ -1134,6 +1332,41 @@
         },
         "additionalProperties": false
       },
+      "ProductVariantDto": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "variantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "stockQuanity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "StockChangeReason": {
         "enum": [
           0,
@@ -1181,6 +1414,9 @@
         "additionalProperties": false
       },
       "TblCategory": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1188,10 +1424,13 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
           },
           "slug": {
+            "maxLength": 255,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -1222,6 +1461,10 @@
         "additionalProperties": false
       },
       "TblProduct": {
+        "required": [
+          "name",
+          "sku"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1229,12 +1472,14 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
           },
           "sku": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
           },
           "price": {
             "type": "number",
@@ -1291,6 +1536,10 @@
         "additionalProperties": false
       },
       "TblProductCategory": {
+        "required": [
+          "categoryId",
+          "productId"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1298,10 +1547,14 @@
             "format": "int32"
           },
           "productId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "categoryId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
@@ -1315,6 +1568,9 @@
         "additionalProperties": false
       },
       "TblProductDescription": {
+        "required": [
+          "productId"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1322,6 +1578,8 @@
             "format": "int32"
           },
           "productId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
@@ -1336,6 +1594,9 @@
         "additionalProperties": false
       },
       "TblProductImage": {
+        "required": [
+          "productId"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1343,6 +1604,8 @@
             "format": "int32"
           },
           "productId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
@@ -1362,6 +1625,11 @@
         "additionalProperties": false
       },
       "TblProductVariant": {
+        "required": [
+          "productId",
+          "sku",
+          "variantName"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1369,16 +1637,20 @@
             "format": "int32"
           },
           "productId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "sku": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
           },
           "variantName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
           },
           "price": {
             "type": "number",
@@ -1411,6 +1683,10 @@
         "additionalProperties": false
       },
       "TblStockLog": {
+        "required": [
+          "note",
+          "productId"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1418,6 +1694,8 @@
             "format": "int32"
           },
           "productId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
@@ -1426,8 +1704,8 @@
             "format": "int32"
           },
           "note": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "createdDate": {
             "type": "string",
@@ -1558,6 +1836,9 @@
         "additionalProperties": false
       },
       "TblVariantAttribute": {
+        "required": [
+          "variantId"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1565,6 +1846,8 @@
             "format": "int32"
           },
           "variantId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
